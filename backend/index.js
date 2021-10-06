@@ -3,13 +3,10 @@ const app = express();
 const { port } = require("./config");
 const router = require("./routes/api");
 
-// connect database
+// connect and start database
 require("./database/mongoose");
 
-// application/json
 app.use(express.json());
-
-// attach api, last thing to do!
 app.use('/api/', router);
 
 app.listen(port, () => {
