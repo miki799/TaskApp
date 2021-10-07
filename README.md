@@ -1,5 +1,5 @@
 # TaskApp  
-Simple TaskApp.  
+Simple TaskApp  
 
 Task format:  
 - name, description, start, end, status
