@@ -17,14 +17,12 @@ class TaskController {
     const description = req.body.description;
     const start = req.body.start;
     const end = req.body.end;
-    const finished = false;
     try {
       const newTask = new Task({
         name: name,
         description: description,
         start: new Date(start),
         end: new Date(end),
-        finished: finished,
       });
       await newTask.save().then(() => res.status(200).json(newTask));
       console.log(newTask);
@@ -44,6 +42,8 @@ class TaskController {
     const description = req.body.description;
     const start = req.body.start;
     const end = req.body.end;
+    const toDo = req.body.toDo;
+    const inProgress = req.body.inProgress;
     const finished = req.body.finished;
     try {
       const editedTask = await Task.findOne({ _id: id });
@@ -68,8 +68,22 @@ class TaskController {
         editedTask.end = new Date(end);
         if (!edited) edited = true;
       }
+      if (toDo !== undefined) {
+        editedTask.toDo = toDo;
+        editedTask.inProgress = false;
+        editedTask.finished = false;
+        if (!edited) edited = true;
+      }
+      if (inProgress !== undefined) {
+        editedTask.inProgress = inProgress;
+        editedTask.toDo = false;
+        editedTask.finished = false;
+        if (!edited) edited = true;
+      }
       if (finished !== undefined) {
         editedTask.finished = finished;
+        editedTask.toDo = false;
+        editedTask.inProgress = false;
         if (!edited) edited = true;
       }
       if (!edited) {
