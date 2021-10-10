@@ -1,13 +1,11 @@
 export const theme = {
     color: {
-        lightTurquise: "#12BFCE",
-        darkTurquise: "#0FA3B1",
-        lightBackground: "#F2F7F2",
-        darkBackground: "#E0E5E0",
-        grey: "#5B5B5B",
-        appBackground: "#6ABCC3",
-        redAlert: "#ff1919",
-        lightRedAlert: "#ff3636",
+        lapis: "#145C9E",
+        grey: "#879197",
+        darkGrey: "#5B5B5B",
+        lightBlueBackground: "#F0F4F9",  
+        mediumBlueBackground: "#B4C5E4",  
+        darkBackground: "#F8F7FF",
     },
     fontWeight: {
         thin: "100",
