@@ -1,52 +1,83 @@
 import React, { useState } from "react";
-import { initialData } from "./assets/initialData";
-import { DragDropContext } from "react-beautiful-dnd";
-import Column from "./components/Column";
+import styled, { ThemeProvider } from "styled-components";
+import { theme } from "./assets/GlobalTheme";
+import Icon from "./components/MenuButton";
 
 const App = () => {
-  const [data, setData] = useState(initialData);
-
-  const onDragEnd = (result) => {
-    const { destination, source, draggableId } = result;
-    if (!destination) {
-      return;
-    }
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    }
-
-    const column = data.columns[source.droppableId];
-    const newTaskIds = Array.from(column.taskIds);
-    newTaskIds.splice(source.index, 1); // cutting off from the source position
-    newTaskIds.splice(destination.index, 0, draggableId); // adding to selected position
-
-    const newColumn = {
-      ...column,
-      taskIds: newTaskIds,
-    };
-
-    setData({
-      ...data,
-      columns: { ...data.columns, [newColumn.id]: newColumn },
-    });
-  };
+  const [selectedMenu, setSelectedMenu] = useState("home");
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      {data.columnOrder.map((columnId) => (
-        <Column
-          key={data.columns[columnId].id}
-          column={data.columns[columnId]}
-          tasks={data.columns[columnId].taskIds.map(
-            (taskId) => data.tasks[taskId]
-          )}
-        />
-      ))}
-    </DragDropContext>
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Menu>
+          <AppName>TaskApp</AppName>
+          <Icon
+            buttonType="home"
+            selectedMenu={selectedMenu}
+            setSelectedMenu={setSelectedMenu}
+          />
+          <Icon
+            buttonType="stats"
+            selectedMenu={selectedMenu}
+            setSelectedMenu={setSelectedMenu}
+          />
+          <Icon
+            buttonType="tasks"
+            selectedMenu={selectedMenu}
+            setSelectedMenu={setSelectedMenu}
+          />
+          <Icon
+            buttonType="chat"
+            selectedMenu={selectedMenu}
+            setSelectedMenu={setSelectedMenu}
+          />
+          <Icon
+            buttonType="calendar"
+            selectedMenu={selectedMenu}
+            setSelectedMenu={setSelectedMenu}
+          />
+          <MenuInnerContainer>
+            <Icon
+              buttonType="settings"
+              selectedMenu={selectedMenu}
+              setSelectedMenu={setSelectedMenu}
+            />
+            <Icon
+              buttonType="logout"
+              selectedMenu={selectedMenu}
+              setSelectedMenu={setSelectedMenu}
+            />
+          </MenuInnerContainer>
+        </Menu>
+      </Container>
+    </ThemeProvider>
   );
 };
+
+const Container = styled.div``;
+
+const Menu = styled.div`
+  background-color: white;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 50px 0px 0px 50px;
+  position: fixed;
+  border-right: solid 1px lightgrey;
+`;
+
+const MenuInnerContainer = styled.div`
+  margin: auto 0 55px 0;
+`;
+
+const AppName = styled.h3`
+  margin: 0px 0px 50px 0px;
+  font-size: 32px;
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+`;
 
 export default App;

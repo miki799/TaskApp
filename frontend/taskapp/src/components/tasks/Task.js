@@ -3,11 +3,19 @@ import styled from "styled-components";
 import propTypes from "prop-types";
 import { Draggable } from "react-beautiful-dnd";
 
-const Task = ({ task, index }) => {
+// isDragging - event when draggable is dragged
+
+const Task = ({ task, index, isDragDisabled }) => {
   return (
-    <Draggable draggableId={task.id} index={index}>
-      {(provided) => (
-        <Container {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+    <Draggable draggableId={task.id} index={index} isDragDisabled={isDragDisabled}>
+      {(provided, snapshot) => (
+        <Container
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+          isDragging={snapshot.isDragging}
+          isDragDisabled={isDragDisabled}
+        >
           <Name>{task.name}</Name>
           <Description>{task.description}</Description>
           <Date>{task.start}</Date>
@@ -23,7 +31,7 @@ const Container = styled.div`
   border-radius: 2px;
   padding: 8px;
   margin-bottom: 8px;
-  background-color: white;
+  background-color: ${({isDragging, isDragDisabled}) => isDragDisabled ? "lightgrey" : isDragging ? "lightgreen" : "white"};
 `;
 
 const Name = styled.h3``;
@@ -34,7 +42,7 @@ const Date = styled.p``;
 
 Task.propTypes = {
   task: propTypes.object,
-  index: propTypes.number
+  index: propTypes.number,
 };
 
 export default Task;
