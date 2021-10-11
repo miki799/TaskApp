@@ -1,6 +1,6 @@
 export const initialData = {
     tasks: {
-      'task-1': { id: 'task-1', name: 'Take out the garbage', description: "Opis taska, ktore musze wykonac na okreslony czas. Nie mam go niestety za duzo. Opis taska, ktore musze wykonac na okreslony czas. Nie mam go niestety za duzo.", start: "1234", end: "4321"},
+      'task-1': { id: 'task-1', name: 'Take out the garbage', description: "Opis taska, ktore musze wykonac na okreslony czas. Nie mam go niestety za duzo. Opis taska, ktore musze wykonac na okreslony czas. Nie mam go niestety za duzo. asdasd asd asdasdas dasdasdasdasdasdasdasdas aasd asdasd as", start: "1234", end: "4321"},
       'task-2': { id: 'task-2', name: 'Watch my favorite show', description: "Opis", start: "1234", end: "4321" },
       'task-3': { id: 'task-3', name: 'Charge my phone', description: "Opis", start: "1234", end: "4321" },
       'task-4': { id: 'task-4', name: 'Cook dinner', description: "Opis", start: "1234", end: "4321" },

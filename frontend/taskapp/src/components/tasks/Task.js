@@ -1,37 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import propTypes from "prop-types";
 import { Draggable } from "react-beautiful-dnd";
-//import { MdDelete } from "react-icons/md";
-import { AiFillEdit } from "react-icons/ai";
+import { CgDetailsMore } from "react-icons/cg";
+import TaskDetail from "./TaskDetail";
 
 // isDragging - event when draggable is dragged
 
 const Task = ({ task, index, isDragDisabled }) => {
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <Draggable
-      draggableId={task.id}
-      index={index}
-      isDragDisabled={isDragDisabled}
-    >
-      {(provided, snapshot) => (
-        <Container
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-          isDragging={snapshot.isDragging}
-          isDragDisabled={isDragDisabled}
-          onClick={() => console.log("Task opened!")}
-        >
-          <InnerContainer>
-            <h3>{task.name}</h3>
-            <AiFillEdit onClick={() => console.log("task with id: " + task.id + " edited!")}/>
-          </InnerContainer>
-          <Description>{task.description}</Description>
-          <Date>Dodano {task.start}</Date>
-        </Container>
-      )}
-    </Draggable>
+    <>
+      <TaskDetail
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        task={task}
+      />
+      <Draggable
+        draggableId={task.id}
+        index={index}
+        isDragDisabled={isDragDisabled}
+      >
+        {(provided, snapshot) => (
+          <Container
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+            isDragging={snapshot.isDragging}
+            isDragDisabled={isDragDisabled}
+          >
+            <InnerContainer>
+              <h3>{task.name}</h3>
+              <More
+                isDragging={snapshot.isDragging}
+                isDragDisabled={isDragDisabled}
+                onClick={() => setShowModal(true)}
+              />
+            </InnerContainer>
+            <Description>{task.description}</Description>
+            <Date>Dodano {task.start}</Date>
+          </Container>
+        )}
+      </Draggable>
+    </>
   );
 };
 
@@ -59,15 +71,6 @@ const InnerContainer = styled.div`
     font-weight: ${({ theme }) => theme.fontWeight.medium};
     margin-right: 10px;
   }
-  svg {
-    font-size: 20px;
-    cursor: pointer;
-    margin-right: 0;
-    margin-left: auto;
-    &:hover{
-      color: ${({theme}) => theme.color.grey};
-    }
-  }
 `;
 
 const Description = styled.p`
@@ -84,6 +87,18 @@ const Date = styled.p`
   font-size: 12px;
   margin: 10px 0px 0px 0px;
   display: inline-block;
+`;
+
+const More = styled(CgDetailsMore)`
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 0;
+  margin-left: auto;
+  &:hover {
+    opacity: 0.5;
+  }
+  color: ${({ isDragging, isDragDisabled, theme }) =>
+    isDragging || isDragDisabled ? "#fff" : theme.color.lapis};
 `;
 
 Task.propTypes = {

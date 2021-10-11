@@ -145,7 +145,7 @@ const TaskList = styled.div`
   }
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.color.grey};
+    background: ${({ theme }) => theme.color.mediumBlueBackground};
     border-radius: 5px;
   }
   /* Handle on hover */

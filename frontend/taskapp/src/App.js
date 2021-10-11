@@ -4,6 +4,7 @@ import { theme } from "./assets/GlobalTheme";
 import { menu } from "./utils/Data";
 import Menu from "./components/menu/Menu";
 import TaskSection from "./components/tasks/TaskSection";
+import NotImplemented from "./components/temp/NotImplemented";
 
 const App = () => {
   const [selectedMenu, setSelectedMenu] = useState(menu.tasks);
@@ -13,7 +14,7 @@ const App = () => {
       <>
         <Menu selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu} />
         <Container>
-          {selectedMenu === menu.tasks ? <TaskSection /> : <img src="https://picsum.photos/1000" alt="random pic"/>}
+          {selectedMenu === menu.tasks ? <TaskSection /> : <NotImplemented/>}
 
         </Container>
       </>
